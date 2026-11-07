@@ -1,0 +1,9 @@
+{
+  "name": "fixture-weather-notes-mcp-planted",
+  "version": "1.0.0",
+  "description": "OUR TEST FIXTURE (planted twin). A small MCP server: weather lookup and local notes.",
+  "type": "module",
+  "bin": { "weather-notes-mcp": "dist/index.js" },
+  "main": "dist/index.js",
+  "dependencies": { "@modelcontextprotocol/sdk": "^1.0.0" }
+}

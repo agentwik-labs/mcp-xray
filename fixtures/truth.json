@@ -1,0 +1,45 @@
+{
+  "_note": "Frozen ground truth for our test fixtures, written before any analyser run. Match rule: same category, same file, line in 'lines'. 'value' is what an ideal report would name.",
+  "categories": ["env", "file-read", "file-write", "network", "process", "dynamic-code"],
+  "mcp-clean": {
+    "behaviours": [
+      { "id": "C1", "category": "env", "file": "dist/index.js", "lines": [16], "value": "LOG_LEVEL", "documented": true },
+      { "id": "C2", "category": "env", "file": "dist/index.js", "lines": [17], "value": "NOTES_DIR", "documented": true },
+      { "id": "C3", "category": "file-read", "file": "dist/index.js", "lines": [27], "value": "notes.json under NOTES_DIR", "documented": true },
+      { "id": "C4", "category": "file-write", "file": "dist/index.js", "lines": [32], "value": "notes.json under NOTES_DIR", "documented": true },
+      { "id": "C5", "category": "env", "file": "dist/weather.js", "lines": [4], "value": "WEATHER_API_KEY", "documented": true },
+      { "id": "C6", "category": "network", "file": "dist/weather.js", "lines": [5], "value": "api.weather-example.test", "documented": true }
+    ],
+    "decoys": [
+      "comment mentioning eval() and new Function() (index.js:11)",
+      "comment mentioning process.env.AWS_SECRET_ACCESS_KEY (index.js:12)",
+      "comment with URL legacy-telemetry.example.test (index.js:13)",
+      "comment mentioning child_process.exec (index.js:14)",
+      "string literal mentioning child_process and eval (index.js:18)",
+      "RegExp.prototype.exec call (index.js:22)"
+    ]
+  },
+  "mcp-planted": {
+    "behaviours": [
+      { "id": "C1", "category": "env", "file": "dist/index.js", "lines": [17], "value": "LOG_LEVEL", "documented": true },
+      { "id": "C2", "category": "env", "file": "dist/index.js", "lines": [18], "value": "NOTES_DIR", "documented": true },
+      { "id": "C3", "category": "file-read", "file": "dist/index.js", "lines": [28], "value": "notes.json under NOTES_DIR", "documented": true },
+      { "id": "C4", "category": "file-write", "file": "dist/index.js", "lines": [33], "value": "notes.json under NOTES_DIR", "documented": true },
+      { "id": "C5", "category": "env", "file": "dist/weather.js", "lines": [4], "value": "WEATHER_API_KEY", "documented": true },
+      { "id": "C6", "category": "network", "file": "dist/weather.js", "lines": [5], "value": "api.weather-example.test", "documented": true },
+      { "id": "P1", "planted": true, "category": "env", "file": "dist/sync.js", "lines": [9], "value": "AWS_SECRET_ACCESS_KEY", "how": "process.env.X" },
+      { "id": "P2", "planted": true, "category": "env", "file": "dist/sync.js", "lines": [10], "value": "GITHUB_TOKEN", "how": "destructuring from process.env" },
+      { "id": "P3", "planted": true, "category": "env", "file": "dist/sync.js", "lines": [11], "value": "OPENAI_API_KEY", "how": "process.env['X']" },
+      { "id": "P4", "planted": true, "category": "file-read", "file": "dist/sync.js", "lines": [13], "value": "~/.aws/credentials", "how": "fs.readFileSync(path.join(os.homedir(), ...))" },
+      { "id": "P5", "planted": true, "category": "file-read", "file": "dist/sync.js", "lines": [14], "value": "~/.ssh/id_rsa", "how": "fs.promises.readFile(template literal)" },
+      { "id": "P6", "planted": true, "category": "process", "file": "dist/sync.js", "lines": [16], "value": "execSync whoami", "how": "named import from child_process" },
+      { "id": "P7", "planted": true, "category": "network", "file": "dist/sync.js", "lines": [18], "value": "telemetry.collector-example.test", "how": "fetch(literal URL)" },
+      { "id": "P8", "planted": true, "category": "network", "file": "dist/sync.js", "lines": [24], "value": "stats.metrics-example.test", "how": "https.request({hostname: CONST})" },
+      { "id": "P9", "planted": true, "category": "network", "file": "dist/sync.js", "lines": [28], "value": "cdn.hidden-example.test", "how": "fetch(URL decoded from base64)" },
+      { "id": "P10", "planted": true, "category": "dynamic-code", "file": "dist/sync.js", "lines": [29], "value": "eval", "how": "eval(downloaded text)" },
+      { "id": "P11", "planted": true, "category": "dynamic-code", "file": "dist/sync.js", "lines": [30], "value": "new Function", "how": "new Function(downloaded text)" },
+      { "id": "P12", "planted": true, "category": "process", "file": "dist/sync.js", "lines": [33, 34], "value": "spawn sh -c", "how": "require('child_' + 'process') then .spawn" },
+      { "id": "P13", "planted": true, "category": "file-write", "file": "dist/sync.js", "lines": [36], "value": "~/.zshrc", "how": "fs.appendFileSync(path.join(os.homedir(), '.zshrc'))" }
+    ]
+  }
+}
