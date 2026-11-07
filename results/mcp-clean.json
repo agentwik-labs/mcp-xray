@@ -1,0 +1,207 @@
+{
+ "name": "fixture-weather-notes-mcp",
+ "version": "1.0.0",
+ "description": "OUR TEST FIXTURE (clean twin). A small MCP server: weather lookup and local notes.",
+ "analysed_at": "2026-11-07T08:52:02.499Z",
+ "rea_version": "6.7.0",
+ "js_files": 2,
+ "coverage": {
+  "status": "unknown",
+  "truncated": false,
+  "parsed_files": 2,
+  "parse_failures": 0,
+  "skipped_files": 0
+ },
+ "rea_ms": 1730,
+ "grep_ms": 0,
+ "readme": "README.md",
+ "facts": [
+  {
+   "category": "env",
+   "file": "dist/index.js",
+   "line": 16,
+   "value": "LOG_LEVEL",
+   "secret": false,
+   "layer": "rea",
+   "documented": true
+  },
+  {
+   "category": "env",
+   "file": "dist/index.js",
+   "line": 17,
+   "value": "NOTES_DIR",
+   "secret": false,
+   "layer": "rea",
+   "documented": true
+  },
+  {
+   "category": "env",
+   "file": "dist/weather.js",
+   "line": 4,
+   "value": "WEATHER_API_KEY",
+   "secret": true,
+   "layer": "rea",
+   "documented": true
+  },
+  {
+   "category": "network",
+   "file": "dist/weather.js",
+   "line": 5,
+   "value": "api.weather-example.test",
+   "url": "https://api.weather-example.test/v2/forecast",
+   "method": "fetch",
+   "layer": "rea-site",
+   "documented": true
+  },
+  {
+   "category": "network",
+   "file": "dist/weather.js",
+   "line": 5,
+   "value": "(host not static)",
+   "url": "`${API}?city=${encodeURIComponent(city)}&date=${date ? date.toISOString() : \"\"}`",
+   "method": "fetch",
+   "layer": "rea",
+   "documented": false
+  },
+  {
+   "category": "file-read",
+   "file": "dist/index.js",
+   "line": 27,
+   "value": null,
+   "layer": "rea-site"
+  },
+  {
+   "category": "file-write",
+   "file": "dist/index.js",
+   "line": 32,
+   "value": null,
+   "layer": "rea-site"
+  }
+ ],
+ "grep": [
+  {
+   "category": "dynamic-code",
+   "file": "dist/index.js",
+   "line": 11,
+   "value": "eval",
+   "comment": true,
+   "layer": "grep"
+  },
+  {
+   "category": "env",
+   "file": "dist/index.js",
+   "line": 12,
+   "value": "AWS_SECRET_ACCESS_KEY",
+   "comment": true,
+   "secret": true,
+   "layer": "grep"
+  },
+  {
+   "category": "network",
+   "file": "dist/index.js",
+   "line": 13,
+   "value": "legacy-telemetry.example.test",
+   "comment": true,
+   "layer": "grep"
+  },
+  {
+   "category": "process",
+   "file": "dist/index.js",
+   "line": 14,
+   "value": "child_process",
+   "comment": true,
+   "layer": "grep"
+  },
+  {
+   "category": "env",
+   "file": "dist/index.js",
+   "line": 16,
+   "value": "LOG_LEVEL",
+   "comment": false,
+   "secret": false,
+   "layer": "grep"
+  },
+  {
+   "category": "env",
+   "file": "dist/index.js",
+   "line": 17,
+   "value": "NOTES_DIR",
+   "comment": false,
+   "secret": false,
+   "layer": "grep"
+  },
+  {
+   "category": "process",
+   "file": "dist/index.js",
+   "line": 18,
+   "value": "child_process",
+   "comment": false,
+   "layer": "grep"
+  },
+  {
+   "category": "process",
+   "file": "dist/index.js",
+   "line": 22,
+   "value": "exec",
+   "comment": false,
+   "layer": "grep"
+  },
+  {
+   "category": "file-read",
+   "file": "dist/index.js",
+   "line": 27,
+   "value": "readFile",
+   "comment": false,
+   "layer": "grep"
+  },
+  {
+   "category": "file-write",
+   "file": "dist/index.js",
+   "line": 32,
+   "value": "writeFile",
+   "comment": false,
+   "layer": "grep"
+  },
+  {
+   "category": "network",
+   "file": "dist/weather.js",
+   "line": 2,
+   "value": "api.weather-example.test",
+   "comment": false,
+   "layer": "grep"
+  },
+  {
+   "category": "env",
+   "file": "dist/weather.js",
+   "line": 4,
+   "value": "WEATHER_API_KEY",
+   "comment": false,
+   "secret": true,
+   "layer": "grep"
+  },
+  {
+   "category": "network",
+   "file": "dist/weather.js",
+   "line": 5,
+   "value": "fetch",
+   "comment": false,
+   "layer": "grep"
+  }
+ ],
+ "hosts_in_strings": [
+  {
+   "host": "api.weather-example.test",
+   "where": "dist/weather.js:2",
+   "count": 1,
+   "documented": true
+  }
+ ],
+ "summary": {
+  "env": 3,
+  "network": 2,
+  "file-read": 1,
+  "file-write": 1,
+  "process": 0,
+  "dynamic-code": 0
+ }
+}

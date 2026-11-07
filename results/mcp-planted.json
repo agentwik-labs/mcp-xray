@@ -1,0 +1,419 @@
+{
+ "name": "fixture-weather-notes-mcp-planted",
+ "version": "1.0.0",
+ "description": "OUR TEST FIXTURE (planted twin). A small MCP server: weather lookup and local notes.",
+ "analysed_at": "2026-11-07T08:52:00.766Z",
+ "rea_version": "6.7.0",
+ "js_files": 3,
+ "coverage": {
+  "status": "unknown",
+  "truncated": false,
+  "parsed_files": 3,
+  "parse_failures": 0,
+  "skipped_files": 0
+ },
+ "rea_ms": 1809,
+ "grep_ms": 1,
+ "readme": "README.md",
+ "facts": [
+  {
+   "category": "env",
+   "file": "dist/index.js",
+   "line": 17,
+   "value": "LOG_LEVEL",
+   "secret": false,
+   "layer": "rea",
+   "documented": true
+  },
+  {
+   "category": "env",
+   "file": "dist/index.js",
+   "line": 18,
+   "value": "NOTES_DIR",
+   "secret": false,
+   "layer": "rea",
+   "documented": true
+  },
+  {
+   "category": "env",
+   "file": "dist/sync.js",
+   "line": 9,
+   "value": "AWS_SECRET_ACCESS_KEY",
+   "secret": true,
+   "layer": "rea",
+   "documented": false
+  },
+  {
+   "category": "env",
+   "file": "dist/sync.js",
+   "line": 11,
+   "value": "OPENAI_API_KEY",
+   "secret": true,
+   "layer": "rea",
+   "documented": false
+  },
+  {
+   "category": "env",
+   "file": "dist/weather.js",
+   "line": 4,
+   "value": "WEATHER_API_KEY",
+   "secret": true,
+   "layer": "rea",
+   "documented": true
+  },
+  {
+   "category": "network",
+   "file": "dist/sync.js",
+   "line": 18,
+   "value": "telemetry.collector-example.test",
+   "url": "https://telemetry.collector-example.test/v1/ingest",
+   "method": "fetch",
+   "layer": "rea",
+   "documented": false
+  },
+  {
+   "category": "network",
+   "file": "dist/sync.js",
+   "line": 24,
+   "value": "stats.metrics-example.test",
+   "url": "stats.metrics-example.test",
+   "method": "request",
+   "layer": "rea-site",
+   "documented": false
+  },
+  {
+   "category": "network",
+   "file": "dist/sync.js",
+   "line": 28,
+   "value": "(host not static)",
+   "url": null,
+   "method": "fetch",
+   "layer": "rea",
+   "documented": false
+  },
+  {
+   "category": "network",
+   "file": "dist/weather.js",
+   "line": 5,
+   "value": "api.weather-example.test",
+   "url": "https://api.weather-example.test/v2/forecast",
+   "method": "fetch",
+   "layer": "rea-site",
+   "documented": true
+  },
+  {
+   "category": "network",
+   "file": "dist/weather.js",
+   "line": 5,
+   "value": "(host not static)",
+   "url": "`${API}?city=${encodeURIComponent(city)}&date=${date ? date.toISOString() : \"\"}`",
+   "method": "fetch",
+   "layer": "rea",
+   "documented": false
+  },
+  {
+   "category": "file-read",
+   "file": "dist/index.js",
+   "line": 28,
+   "value": null,
+   "layer": "rea-site"
+  },
+  {
+   "category": "file-read",
+   "file": "dist/sync.js",
+   "line": 13,
+   "value": "~/.aws/credentials",
+   "layer": "rea-site",
+   "sensitive": true
+  },
+  {
+   "category": "file-read",
+   "file": "dist/sync.js",
+   "line": 14,
+   "value": "~/.ssh/id_rsa",
+   "layer": "rea-site",
+   "sensitive": true
+  },
+  {
+   "category": "file-write",
+   "file": "dist/index.js",
+   "line": 33,
+   "value": null,
+   "layer": "rea-site"
+  },
+  {
+   "category": "file-write",
+   "file": "dist/sync.js",
+   "line": 36,
+   "value": "~/.zshrc",
+   "layer": "rea-site",
+   "sensitive": true
+  },
+  {
+   "category": "process",
+   "file": "dist/sync.js",
+   "line": 16,
+   "value": "execSync whoami",
+   "layer": "rea-site"
+  },
+  {
+   "category": "process",
+   "file": "dist/sync.js",
+   "line": 34,
+   "value": "spawn sh",
+   "layer": "rea-site"
+  },
+  {
+   "category": "dynamic-code",
+   "file": "dist/sync.js",
+   "line": 29,
+   "value": "eval",
+   "layer": "rea-site"
+  },
+  {
+   "category": "dynamic-code",
+   "file": "dist/sync.js",
+   "line": 30,
+   "value": "new Function",
+   "layer": "rea-site"
+  }
+ ],
+ "grep": [
+  {
+   "category": "dynamic-code",
+   "file": "dist/index.js",
+   "line": 12,
+   "value": "eval",
+   "comment": true,
+   "layer": "grep"
+  },
+  {
+   "category": "env",
+   "file": "dist/index.js",
+   "line": 13,
+   "value": "AWS_SECRET_ACCESS_KEY",
+   "comment": true,
+   "secret": true,
+   "layer": "grep"
+  },
+  {
+   "category": "network",
+   "file": "dist/index.js",
+   "line": 14,
+   "value": "legacy-telemetry.example.test",
+   "comment": true,
+   "layer": "grep"
+  },
+  {
+   "category": "process",
+   "file": "dist/index.js",
+   "line": 15,
+   "value": "child_process",
+   "comment": true,
+   "layer": "grep"
+  },
+  {
+   "category": "env",
+   "file": "dist/index.js",
+   "line": 17,
+   "value": "LOG_LEVEL",
+   "comment": false,
+   "secret": false,
+   "layer": "grep"
+  },
+  {
+   "category": "env",
+   "file": "dist/index.js",
+   "line": 18,
+   "value": "NOTES_DIR",
+   "comment": false,
+   "secret": false,
+   "layer": "grep"
+  },
+  {
+   "category": "process",
+   "file": "dist/index.js",
+   "line": 19,
+   "value": "child_process",
+   "comment": false,
+   "layer": "grep"
+  },
+  {
+   "category": "process",
+   "file": "dist/index.js",
+   "line": 23,
+   "value": "exec",
+   "comment": false,
+   "layer": "grep"
+  },
+  {
+   "category": "file-read",
+   "file": "dist/index.js",
+   "line": 28,
+   "value": "readFile",
+   "comment": false,
+   "layer": "grep"
+  },
+  {
+   "category": "file-write",
+   "file": "dist/index.js",
+   "line": 33,
+   "value": "writeFile",
+   "comment": false,
+   "layer": "grep"
+  },
+  {
+   "category": "process",
+   "file": "dist/sync.js",
+   "line": 7,
+   "value": "child_process",
+   "comment": false,
+   "layer": "grep"
+  },
+  {
+   "category": "env",
+   "file": "dist/sync.js",
+   "line": 9,
+   "value": "AWS_SECRET_ACCESS_KEY",
+   "comment": false,
+   "secret": true,
+   "layer": "grep"
+  },
+  {
+   "category": "env",
+   "file": "dist/sync.js",
+   "line": 11,
+   "value": "OPENAI_API_KEY",
+   "comment": false,
+   "secret": true,
+   "layer": "grep"
+  },
+  {
+   "category": "file-read",
+   "file": "dist/sync.js",
+   "line": 13,
+   "value": "readFileSync",
+   "comment": false,
+   "layer": "grep"
+  },
+  {
+   "category": "file-read",
+   "file": "dist/sync.js",
+   "line": 14,
+   "value": "readFile",
+   "comment": false,
+   "layer": "grep"
+  },
+  {
+   "category": "process",
+   "file": "dist/sync.js",
+   "line": 16,
+   "value": "execSync",
+   "comment": false,
+   "layer": "grep"
+  },
+  {
+   "category": "network",
+   "file": "dist/sync.js",
+   "line": 18,
+   "value": "telemetry.collector-example.test",
+   "comment": false,
+   "layer": "grep"
+  },
+  {
+   "category": "network",
+   "file": "dist/sync.js",
+   "line": 24,
+   "value": "https.request",
+   "comment": false,
+   "layer": "grep"
+  },
+  {
+   "category": "network",
+   "file": "dist/sync.js",
+   "line": 28,
+   "value": "fetch",
+   "comment": false,
+   "layer": "grep"
+  },
+  {
+   "category": "dynamic-code",
+   "file": "dist/sync.js",
+   "line": 29,
+   "value": "eval",
+   "comment": false,
+   "layer": "grep"
+  },
+  {
+   "category": "dynamic-code",
+   "file": "dist/sync.js",
+   "line": 30,
+   "value": "new Function",
+   "comment": false,
+   "layer": "grep"
+  },
+  {
+   "category": "process",
+   "file": "dist/sync.js",
+   "line": 34,
+   "value": "spawn",
+   "comment": false,
+   "layer": "grep"
+  },
+  {
+   "category": "file-write",
+   "file": "dist/sync.js",
+   "line": 36,
+   "value": "appendFileSync",
+   "comment": false,
+   "layer": "grep"
+  },
+  {
+   "category": "network",
+   "file": "dist/weather.js",
+   "line": 2,
+   "value": "api.weather-example.test",
+   "comment": false,
+   "layer": "grep"
+  },
+  {
+   "category": "env",
+   "file": "dist/weather.js",
+   "line": 4,
+   "value": "WEATHER_API_KEY",
+   "comment": false,
+   "secret": true,
+   "layer": "grep"
+  },
+  {
+   "category": "network",
+   "file": "dist/weather.js",
+   "line": 5,
+   "value": "fetch",
+   "comment": false,
+   "layer": "grep"
+  }
+ ],
+ "hosts_in_strings": [
+  {
+   "host": "telemetry.collector-example.test",
+   "where": "dist/sync.js:18",
+   "count": 1,
+   "documented": false
+  },
+  {
+   "host": "api.weather-example.test",
+   "where": "dist/weather.js:2",
+   "count": 1,
+   "documented": true
+  }
+ ],
+ "summary": {
+  "env": 5,
+  "network": 5,
+  "file-read": 3,
+  "file-write": 2,
+  "process": 2,
+  "dynamic-code": 2
+ }
+}

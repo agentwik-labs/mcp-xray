@@ -1,16 +1,20 @@
 {
   "name": "mcp-xray",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "version": "0.1.0",
+  "private": true,
+  "description": "What does this MCP server actually do? Static report card for an npm MCP server package, built on REA.",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "mcp-xray": "bin/mcp-xray.mjs"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "fixtures": "node scripts/score-fixtures.mjs",
+    "targets": "node scripts/run-targets.mjs"
+  },
   "dependencies": {
-    "rea-agents": "^6.7.0"
+    "rea-agents": "6.7.0",
+    "@babel/parser": "8.0.4"
   }
 }
