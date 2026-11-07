@@ -41,11 +41,12 @@ function resolveIdent(file, ident) {
   const m = file.src.match(new RegExp(`(?:const|let|var)\\s+${ident.replace(/\$/g, "\\$")}\\s*=\\s*["'\`]([^"'\`]+)["'\`]`));
   return m ? m[1] : null;
 }
+const TLD = /\.(com|net|org|io|dev|app|ai|co|test|me|so|sh|ly|gg|us|uk|de|fr|jp|cn|ru|edu|gov|info|biz|cloud|xyz|tech|site|page|ms|so|to|tv|fm|run|eu|in|ca|au|nl|se|ch)$/i;
 export function hostOf(v) {
   if (!v) return null;
-  const m = String(v).match(/^[a-z][a-z0-9+.-]*:\/\/([^/?#:"'`\s]+)/i);
-  if (m) return m[1].toLowerCase();
-  if (/^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(v)) return v.toLowerCase();
+  const m = String(v).match(/^(?:https?|wss?):\/\/(?:[^@/?#\s"'`]*@)?([^/?#:"'`\s@]+)/i);
+  if (m) return /^[a-z0-9.-]+$/i.test(m[1]) ? m[1].toLowerCase() : null;
+  if (/^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(v) && TLD.test(v)) return v.toLowerCase();
   return null;
 }
 
