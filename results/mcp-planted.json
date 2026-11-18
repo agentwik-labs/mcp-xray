@@ -2,7 +2,7 @@
  "name": "fixture-weather-notes-mcp-planted",
  "version": "1.0.0",
  "description": "OUR TEST FIXTURE (planted twin). A small MCP server: weather lookup and local notes.",
- "analysed_at": "2026-11-07T08:52:00.766Z",
+ "analysed_at": "2026-11-18T15:58:58.245Z",
  "rea_version": "6.7.0",
  "js_files": 3,
  "coverage": {
@@ -12,9 +12,10 @@
   "parse_failures": 0,
   "skipped_files": 0
  },
- "rea_ms": 1809,
+ "rea_ms": 2013,
  "grep_ms": 1,
  "readme": "README.md",
+ "ast_parse_failures": [],
  "facts": [
   {
    "category": "env",
@@ -41,6 +42,15 @@
    "value": "AWS_SECRET_ACCESS_KEY",
    "secret": true,
    "layer": "rea",
+   "documented": false
+  },
+  {
+   "category": "env",
+   "file": "dist/sync.js",
+   "line": 10,
+   "value": "GITHUB_TOKEN",
+   "secret": true,
+   "layer": "ast",
    "documented": false
   },
   {
@@ -100,16 +110,6 @@
    "method": "fetch",
    "layer": "rea-site",
    "documented": true
-  },
-  {
-   "category": "network",
-   "file": "dist/weather.js",
-   "line": 5,
-   "value": "(host not static)",
-   "url": "`${API}?city=${encodeURIComponent(city)}&date=${date ? date.toISOString() : \"\"}`",
-   "method": "fetch",
-   "layer": "rea",
-   "documented": false
   },
   {
    "category": "file-read",
@@ -210,6 +210,7 @@
    "line": 15,
    "value": "child_process",
    "comment": true,
+   "regexExec": false,
    "layer": "grep"
   },
   {
@@ -236,6 +237,7 @@
    "line": 19,
    "value": "child_process",
    "comment": false,
+   "regexExec": false,
    "layer": "grep"
   },
   {
@@ -244,6 +246,7 @@
    "line": 23,
    "value": "exec",
    "comment": false,
+   "regexExec": true,
    "layer": "grep"
   },
   {
@@ -268,6 +271,7 @@
    "line": 7,
    "value": "child_process",
    "comment": false,
+   "regexExec": false,
    "layer": "grep"
   },
   {
@@ -310,6 +314,7 @@
    "line": 16,
    "value": "execSync",
    "comment": false,
+   "regexExec": false,
    "layer": "grep"
   },
   {
@@ -358,6 +363,7 @@
    "line": 34,
    "value": "spawn",
    "comment": false,
+   "regexExec": false,
    "layer": "grep"
   },
   {
@@ -409,8 +415,8 @@
   }
  ],
  "summary": {
-  "env": 5,
-  "network": 5,
+  "env": 6,
+  "network": 4,
   "file-read": 3,
   "file-write": 2,
   "process": 2,

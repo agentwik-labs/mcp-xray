@@ -2,7 +2,7 @@
  "name": "fixture-weather-notes-mcp",
  "version": "1.0.0",
  "description": "OUR TEST FIXTURE (clean twin). A small MCP server: weather lookup and local notes.",
- "analysed_at": "2026-11-07T08:52:02.499Z",
+ "analysed_at": "2026-11-18T15:59:00.136Z",
  "rea_version": "6.7.0",
  "js_files": 2,
  "coverage": {
@@ -12,9 +12,10 @@
   "parse_failures": 0,
   "skipped_files": 0
  },
- "rea_ms": 1730,
+ "rea_ms": 1886,
  "grep_ms": 0,
  "readme": "README.md",
+ "ast_parse_failures": [],
  "facts": [
   {
    "category": "env",
@@ -52,16 +53,6 @@
    "method": "fetch",
    "layer": "rea-site",
    "documented": true
-  },
-  {
-   "category": "network",
-   "file": "dist/weather.js",
-   "line": 5,
-   "value": "(host not static)",
-   "url": "`${API}?city=${encodeURIComponent(city)}&date=${date ? date.toISOString() : \"\"}`",
-   "method": "fetch",
-   "layer": "rea",
-   "documented": false
   },
   {
    "category": "file-read",
@@ -110,6 +101,7 @@
    "line": 14,
    "value": "child_process",
    "comment": true,
+   "regexExec": false,
    "layer": "grep"
   },
   {
@@ -136,6 +128,7 @@
    "line": 18,
    "value": "child_process",
    "comment": false,
+   "regexExec": false,
    "layer": "grep"
   },
   {
@@ -144,6 +137,7 @@
    "line": 22,
    "value": "exec",
    "comment": false,
+   "regexExec": true,
    "layer": "grep"
   },
   {
@@ -198,7 +192,7 @@
  ],
  "summary": {
   "env": 3,
-  "network": 2,
+  "network": 1,
   "file-read": 1,
   "file-write": 1,
   "process": 0,

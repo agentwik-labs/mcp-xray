@@ -1,6 +1,6 @@
 // Renders one report card (one screen) per package, plus an index page. Neutral wording: we list behaviour, we do not judge.
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
-const CSS = `*{box-sizing:border-box}body{margin:0;background:#0d1016;color:#e8ecf3;font:16px/1.45 ui-sans-serif,system-ui,-apple-system,sans-serif}
+export const CSS = `*{box-sizing:border-box}body{margin:0;background:#0d1016;color:#e8ecf3;font:16px/1.45 ui-sans-serif,system-ui,-apple-system,sans-serif}
 .wrap{max-width:1500px;margin:0 auto;padding:34px 44px}
 .top{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}.top h1{font:800 40px/1.1 ui-monospace,Menlo,monospace;margin:0;letter-spacing:-1px}
 .ver{color:#8b95a7;font:600 20px ui-monospace,Menlo,monospace}.desc{color:#aab3c5;margin:6px 0 0;font-size:18px;max-width:1100px}
@@ -50,6 +50,6 @@ ${strHosts.length ? `<div class="w" style="margin:8px 0 2px">hosts named in code
 <div class="card"><h2>Dynamic code</h2>${rows(by("dynamic-code").slice(0, 6), (f) => `<div class="row">${pl(f)}<span class="v">${esc(f.value)}</span>${where(f)}</div>`)}</div>
 <div class="card"><h2>Same files, plain grep</h2><div class="row"><span class="v">grep hits (locations)</span><b>${new Set(rep.grep.map((f) => f.category + f.file + f.line)).size}</b></div><div class="row"><span class="v">this report (locations)</span><b>${new Set(F.map((f) => f.category + f.file + f.line)).size}</b></div><div class="w" style="margin-top:6px">grep also matches comments, regex .exec() and URL strings; see README for the measured comparison.</div></div>
 </div>
-<div class="foot">mcp-xray: static analysis with REA (rea-agents ${esc(rep.rea_version)}) plus our call-site classifier. Lists what the shipped code can do, with file:line. Not a verdict on the package.</div>
+<div class="foot">mcp-xray: static analysis with REA (rea-agents ${esc(rep.rea_version)}) plus our call-site classifier and AST layer. Lists what the shipped code can do, with file:line. Not a verdict on the package.</div>
 </div></body></html>`;
 }

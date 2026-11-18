@@ -5,7 +5,6 @@
     "C1",
     "C2",
     "C5",
-    "C6",
     "P1",
     "P3",
     "P7",
@@ -14,6 +13,7 @@
    "missed": [
     "C3",
     "C4",
+    "C6",
     "P2",
     "P4",
     "P5",
@@ -26,12 +26,12 @@
    ],
    "planted_found": 4,
    "planted_total": 13,
-   "real_found": 4,
+   "real_found": 3,
    "real_total": 6,
    "false_positives": 0,
    "fp_detail": []
   },
-  "rea": {
+  "mcp_xray": {
    "found": [
     "C1",
     "C2",
@@ -40,6 +40,7 @@
     "C5",
     "C6",
     "P1",
+    "P2",
     "P3",
     "P4",
     "P5",
@@ -52,10 +53,8 @@
     "P12",
     "P13"
    ],
-   "missed": [
-    "P2"
-   ],
-   "planted_found": 12,
+   "missed": [],
+   "planted_found": 13,
    "planted_total": 13,
    "real_found": 6,
    "real_total": 6,
@@ -64,7 +63,7 @@
   },
   "hosts_named": {
    "truth": 4,
-   "rea": 3,
+   "mcp_xray": 3,
    "grep": 2,
    "grep_extra_hosts": [
     "legacy-telemetry.example.test"
@@ -112,14 +111,17 @@
   },
   "overlap": {
    "both": 18,
-   "only_rea": 0,
+   "only_rea": 1,
    "only_grep": 8,
    "only_grep_in_comments": 4,
    "only_grep_url_strings": 1,
+   "only_grep_regex_exec": 1,
+   "only_grep_localhost": 0,
    "only_grep_other": 3
   },
-  "rea_layer_counts": {
-   "rea": 8,
+  "layer_counts": {
+   "rea": 7,
+   "ast": 1,
    "rea-site": 11
   }
  },
@@ -128,21 +130,21 @@
    "found": [
     "C1",
     "C2",
-    "C5",
-    "C6"
+    "C5"
    ],
    "missed": [
     "C3",
-    "C4"
+    "C4",
+    "C6"
    ],
    "planted_found": 0,
    "planted_total": 0,
-   "real_found": 4,
+   "real_found": 3,
    "real_total": 6,
    "false_positives": 0,
    "fp_detail": []
   },
-  "rea": {
+  "mcp_xray": {
    "found": [
     "C1",
     "C2",
@@ -161,7 +163,7 @@
   },
   "hosts_named": {
    "truth": 1,
-   "rea": 1,
+   "mcp_xray": 1,
    "grep": 1,
    "grep_extra_hosts": [
     "legacy-telemetry.example.test"
@@ -198,10 +200,12 @@
    "only_grep": 7,
    "only_grep_in_comments": 4,
    "only_grep_url_strings": 1,
+   "only_grep_regex_exec": 1,
+   "only_grep_localhost": 0,
    "only_grep_other": 2
   },
-  "rea_layer_counts": {
-   "rea": 4,
+  "layer_counts": {
+   "rea": 3,
    "rea-site": 3
   }
  }

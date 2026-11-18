@@ -1,3 +1,10 @@
 node_modules/
-targets/
-demo/_work/
+# downloaded registry tarballs and cached REA output (scripts/fetch-targets.mjs)
+/targets/
+# per-target analysis JSON (large; rebuilt by scripts/build-reports.mjs)
+/results/targets/
+# demo recording scratch
+/demo/_work/
+*.tgz
+.DS_Store
+npm-debug.log*

@@ -1,20 +1,49 @@
 {
-  "name": "mcp-xray",
+  "name": "@agentwik-labs/mcp-xray",
   "version": "0.1.0",
-  "private": true,
-  "description": "What does this MCP server actually do? Static report card for an npm MCP server package, built on REA.",
-  "type": "module",
+  "description": "Static report card for an npm MCP server package: env vars, network hosts, files, child processes and eval in the shipped code, with file:line, checked against its README. Built on REA; never installs or runs the package.",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "static-analysis",
+    "security",
+    "supply-chain",
+    "npm"
+  ],
   "license": "MIT",
+  "author": "agentwik-labs",
+  "homepage": "https://github.com/agentwik-labs/mcp-xray#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agentwik-labs/mcp-xray.git"
+  },
+  "bugs": {
+    "url": "https://github.com/agentwik-labs/mcp-xray/issues"
+  },
+  "type": "module",
   "bin": {
     "mcp-xray": "bin/mcp-xray.mjs"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "node": "^22.19.0 || ^24.11.0 || >=26.0.0"
   },
   "scripts": {
     "test": "node --test test/*.test.mjs",
     "fixtures": "node scripts/score-fixtures.mjs",
-    "targets": "node scripts/run-targets.mjs"
+    "fetch": "node scripts/fetch-targets.mjs",
+    "reports": "node scripts/build-reports.mjs"
   },
   "dependencies": {
     "rea-agents": "6.7.0",
     "@babel/parser": "8.0.4"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

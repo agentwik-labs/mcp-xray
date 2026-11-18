@@ -1,50 +1,78 @@
 // One package directory in, one report object out.
+import { basename } from "node:path";
 import { runRea, REA_VERSION } from "./rea.mjs";
-import { extractFacts, CATEGORIES } from "./facts.mjs";
+import { extractFacts, sortFacts, CATEGORIES, SECRET_RE } from "./facts.mjs";
 import { grepFacts } from "./grep.mjs";
 import { readmeClaims, hostDocumented } from "./readme.mjs";
 import { jsFiles } from "./files.mjs";
-import { hostsInStrings } from "./strings.mjs";
+import { astFacts } from "./ast.mjs";
+
+const factKey = (f) => `${f.category}|${f.file}|${f.line}`;
+
+// Env reads by destructuring, which REA's facts do not lift (see src/ast.mjs). Skips any REA already reported.
+function destructuredEnvFacts(astEnv, facts) {
+  const have = new Set(facts.filter((f) => f.category === "env").map((f) => `${factKey(f)}|${f.value}`));
+  return astEnv
+    .map((e) => ({ category: "env", file: e.file, line: e.line, value: e.name, secret: SECRET_RE.test(e.name), layer: "ast" }))
+    .filter((f) => !have.has(`${factKey(f)}|${f.value}`));
+}
+
+// Hosts named in string literals, one entry per host with its first location and a count.
+function namedHosts(hosts, claims) {
+  const byHost = new Map();
+  for (const h of hosts) {
+    if (!byHost.has(h.host)) byHost.set(h.host, { host: h.host, where: `${h.file}:${h.line}`, count: 0, documented: hostDocumented(h.host, claims) });
+    byHost.get(h.host).count++;
+  }
+  return [...byHost.values()].sort((a, b) => b.count - a.count);
+}
 
 export function analyze(root, { cache } = {}) {
   const files = jsFiles(root);
-  const ev = runRea(root, { cache });
   const fileSet = new Set(files);
-  const x = extractFacts(ev, root);
-  const { coverage, rea_ms } = x;
-  const facts = x.facts.filter((f) => fileSet.has(f.file));
+  const rea = extractFacts(runRea(root, { cache }), root);
+  const ast = astFacts(root, files);
+  const reaFacts = rea.facts.filter((f) => fileSet.has(f.file));
+  const facts = sortFacts([...reaFacts, ...destructuredEnvFacts(ast.env, reaFacts)]);
+
   const t0 = Date.now();
   const grep = grepFacts(root, files);
   const grep_ms = Date.now() - t0;
+
   const claims = readmeClaims(root);
-  const strHosts = hostsInStrings(root, files).filter((h) => h.host);
-  const named = new Map();
-  for (const h of strHosts) { if (!named.has(h.host)) named.set(h.host, { host: h.host, where: `${h.file}:${h.line}`, count: 0, documented: hostDocumented(h.host, claims) }); named.get(h.host).count++; }
   for (const f of facts) {
     if (f.category === "env") f.documented = claims.env.has(f.value);
     if (f.category === "network") f.documented = hostDocumented(f.value, claims);
   }
   const pkg = claims.pkg;
   return {
-    name: pkg.name || root.split("/").pop(), version: pkg.version || null, description: pkg.description || "",
+    name: pkg.name || basename(root), version: pkg.version || null, description: pkg.description || "",
     analysed_at: new Date().toISOString(), rea_version: REA_VERSION,
-    js_files: files.length, coverage, rea_ms, grep_ms, readme: claims.readme,
-    facts, grep, hosts_in_strings: [...named.values()].sort((a, b) => b.count - a.count),
+    js_files: files.length, coverage: rea.coverage, rea_ms: rea.rea_ms, grep_ms, readme: claims.readme,
+    ast_parse_failures: ast.parseFailures,
+    facts, grep, hosts_in_strings: namedHosts(ast.hosts, claims),
     summary: Object.fromEntries(CATEGORIES.map((c) => [c, facts.filter((f) => f.category === c).length])),
   };
 }
 
-// REA-layer vs grep, by location (category + file + line)
+// Our layers vs grep, matched by location (category + file + line)
 export function compare(rep) {
-  const k = (f) => `${f.category}|${f.file}|${f.line}`;
-  const a = new Set(rep.facts.map(k)), b = new Set(rep.grep.map(k));
-  const og = rep.grep.filter((f) => !a.has(k(f)));
-  const ogk = new Set(og.map(k));
-  const inComment = new Set(og.filter((f) => f.comment).map(k));
-  const urlOnly = new Set(og.filter((f) => !f.comment && f.category === "network" && /\./.test(f.value) && !/^https?\./.test(f.value)).map(k));
-  return { both: [...a].filter((x) => b.has(x)).length, only_rea: [...a].filter((x) => !b.has(x)).length, only_grep: ogk.size,
-    only_grep_in_comments: inComment.size, only_grep_url_strings: [...urlOnly].filter((x) => !inComment.has(x)).length,
-    only_grep_regex_exec: new Set(og.filter((f) => !f.comment && f.value === "exec" && f.regexExec).map(k)).size,
-    only_grep_localhost: new Set(og.filter((f) => !f.comment && /^(localhost|127\.0\.0\.1)$/.test(f.value)).map(k)).size,
-    only_grep_other: [...ogk].filter((x) => !inComment.has(x) && !urlOnly.has(x)).length };
+  const keysOf = (fs) => new Set(fs.map(factKey));
+  const ours = keysOf(rep.facts);
+  const grepKeys = keysOf(rep.grep);
+  const onlyGrep = rep.grep.filter((f) => !ours.has(factKey(f)));
+  const onlyGrepKeys = keysOf(onlyGrep);
+  const inComment = keysOf(onlyGrep.filter((f) => f.comment));
+  const code = onlyGrep.filter((f) => !f.comment);
+  const urlOnly = keysOf(code.filter((f) => f.category === "network" && /\./.test(f.value) && !/^https?\./.test(f.value)));
+  return {
+    both: [...ours].filter((k) => grepKeys.has(k)).length,
+    only_rea: [...ours].filter((k) => !grepKeys.has(k)).length,
+    only_grep: onlyGrepKeys.size,
+    only_grep_in_comments: inComment.size,
+    only_grep_url_strings: [...urlOnly].filter((k) => !inComment.has(k)).length,
+    only_grep_regex_exec: keysOf(code.filter((f) => f.value === "exec" && f.regexExec)).size,
+    only_grep_localhost: keysOf(code.filter((f) => /^(localhost|127\.0\.0\.1)$/.test(f.value))).size,
+    only_grep_other: [...onlyGrepKeys].filter((k) => !inComment.has(k) && !urlOnly.has(k)).length,
+  };
 }

@@ -1,5 +1,6 @@
 // The baseline: what a careful reviewer gets from grep over the same files, line by line.
 // It has no idea what is code, comment or string; that is the point of the comparison.
+// These rules are kept as first measured, so the comparison stays fixed.
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { jsFiles } from "./files.mjs";
@@ -14,20 +15,39 @@ export const GREP_RULES = {
   "dynamic-code": [/\b(eval)\s*\(/g, /\b(new\s+Function)\s*\(/g],
 };
 
+const COMMENT_LINE = /^(\/\/|\/\*|\*)/;
+const REGEX_EXEC = /(\w|\/[gimsuy]*)\.exec\s*\(/;
+
+function grepLine(text, file, line) {
+  const out = [];
+  const comment = COMMENT_LINE.test(text.trim());
+  const regexExec = REGEX_EXEC.test(text);
+  for (const [category, rules] of Object.entries(GREP_RULES)) {
+    const values = new Set();
+    for (const re of rules) for (const m of text.matchAll(re)) values.add(category === "network" ? hostOf(m[1]) || m[1] : m[1]);
+    for (const value of values) {
+      out.push({
+        category, file, line, value, comment,
+        regexExec: category === "process" ? regexExec : undefined,
+        secret: category === "env" ? SECRET_RE.test(value) : undefined,
+        layer: "grep",
+      });
+    }
+  }
+  return out;
+}
+
 export function grepFacts(root, files = jsFiles(root)) {
   const out = [];
   for (const file of files) {
-    const lines = readFileSync(join(root, file), "utf8").split("\n");
-    lines.forEach((text, i) => {
-      for (const [category, rules] of Object.entries(GREP_RULES)) {
-        const vals = new Set();
-        for (const re of rules) for (const m of text.matchAll(re)) vals.add(category === "network" ? hostOf(m[1]) || m[1] : m[1]);
-        const t = text.trim(); const comment = /^(\/\/|\/\*|\*)/.test(t); const regexExec = /(\w|\/[gimsuy]*)\.exec\s*\(/.test(text);
-        for (const value of vals) out.push({ category, file, line: i + 1, value, comment, regexExec: category === "process" ? regexExec : undefined, secret: category === "env" ? SECRET_RE.test(value) : undefined, layer: "grep" });
-      }
-    });
+    readFileSync(join(root, file), "utf8").split("\n").forEach((text, i) => out.push(...grepLine(text, file, i + 1)));
   }
-  // a network line with both a URL and fetch( counts once
+  // one hit per location (a line with both a URL and fetch( counts once); env keeps one per name
   const seen = new Set();
-  return out.filter((f) => { const k = `${f.category}|${f.file}|${f.line}${f.category === "env" ? "|" + f.value : ""}`; if (seen.has(k)) return false; seen.add(k); return true; });
+  return out.filter((f) => {
+    const k = `${f.category}|${f.file}|${f.line}` + (f.category === "env" ? `|${f.value}` : "");
+    if (seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  });
 }

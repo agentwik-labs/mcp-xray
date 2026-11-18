@@ -10,6 +10,7 @@
      "C5",
      "C6",
      "P1",
+     "P2",
      "P3",
      "P4",
      "P5",
@@ -22,10 +23,8 @@
      "P12",
      "P13"
     ],
-    "missed": [
-     "P2"
-    ],
-    "planted_found": 12,
+    "missed": [],
+    "planted_found": 13,
     "planted_total": 13,
     "real_found": 6,
     "real_total": 6,
@@ -105,7 +104,7 @@
    },
    "overlap": {
     "both": 18,
-    "only_rea": 0,
+    "only_rea": 1,
     "only_grep": 8,
     "only_grep_in_comments": 4,
     "only_grep_url_strings": 1,
@@ -395,23 +394,23 @@
    "files": 8,
    "coverage": "unknown",
    "rea_s": 13.7,
-   "env": 24,
-   "secret_env": 3,
-   "env_not_in_readme": 13,
+   "env": 25,
+   "secret_env": 4,
+   "env_not_in_readme": 14,
    "network_calls": 29,
    "hosts_named": 8,
    "hosts_not_in_readme": 2,
    "file_rw": 2,
    "process": 0,
    "dynamic": 0,
-   "both": 49,
+   "both": 50,
    "only_rea": 12,
-   "only_grep": 76,
+   "only_grep": 75,
    "only_grep_in_comments": 0,
    "only_grep_url_strings": 33,
    "only_grep_regex_exec": 8,
    "only_grep_localhost": 6,
-   "only_grep_other": 43
+   "only_grep_other": 42
   },
   {
    "pkg": "@notionhq/notion-mcp-server",
@@ -491,14 +490,14 @@
  ],
  "totals": {
   "packages": 12,
-  "both": 138,
+  "both": 139,
   "only_rea": 12,
-  "only_grep": 425,
+  "only_grep": 424,
   "only_grep_in_comments": 21,
   "only_grep_url_strings": 270,
-  "only_grep_other": 134,
+  "only_grep_other": 133,
   "only_grep_regex_exec": 52,
   "only_grep_localhost": 10,
-  "only_grep_real_code_missed_by_rea": 72
+  "only_grep_real_code_missed_by_rea": 71
  }
 }

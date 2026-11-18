@@ -2,15 +2,15 @@
  "name": "mcp-xray",
  "title": "mcp-xray: what does this MCP server actually do?",
  "pitch": "Point it at an npm MCP server package, get a one-screen report card of what the shipped code can do: env vars (secrets marked), network hosts, files read/written, child processes, eval, each with file:line and checked against the README. Static only, built on REA.",
- "status": "built and tested locally (7 tests pass); awaiting owner review; not published (no remote, nothing posted)",
+ "status": "built and tested locally (25 tests pass); awaiting owner review; not published (no remote, nothing posted)",
  "what_is_real": "Real REA 6.7.0 CLI runs (static, nothing installed or executed) on our two fixture twins and on 12 real npm MCP server tarballs. The video records the real HTML report pages in clean headless Chromium; the yellow 'OUR TEST FIXTURE' tag marks our planted fixture; captions, title card and highlight boxes are overlays added by the recording script. Not done: dependencies' code (not in the tarball), runtime behaviour, other registries.",
  "measured": {
   "fixture": {
-   "planted_found": "12 of 13 (missed: env read by destructuring)",
+   "planted_found": "13 of 13",
    "false_positives_planted_twin": 0,
    "false_positives_clean_twin": 0,
    "rea_facts_alone_planted_found": "4 of 13",
-   "grep_planted_found": "12 of 13",
+   "grep_planted_found": "12 of 13 (missed: env read by destructuring)",
    "grep_false_positives_planted_twin": 8,
    "grep_false_positives_clean_twin": 7
   },
@@ -21,15 +21,15 @@
    "concerning_findings": 0
   },
   "rea_vs_grep_real": {
-   "found_by_both": 138,
+   "found_by_both": 139,
    "only_rea_layer": 12,
-   "only_grep": 425,
-   "only_grep_breakdown": "21 comments, 270 URL strings, 52 regex .exec(), 10 localhost, 72 real code lines REA's layer missed (41 in two large bundles REA covered partially)",
-   "verdict": "REA adds precision and structure, not recall; on real packages it found little grep missed"
-  }
+   "only_grep": 424,
+   "only_grep_breakdown": "21 comments, 270 URL strings, 52 regex .exec(), 10 localhost, 71 real code lines our layers missed (41 in the two packages REA covered partially)",
+   "verdict": "our layers add precision and structure, not recall; on real packages they found little grep missed"
+  },
+  "fixture_measured_at": "2026-11-18, rea-agents 6.7.0, results/fixture-scores.json"
  },
- "local_path": ".",
  "video": "demo/demo.mp4",
  "poster": "demo/poster.png",
- "draft_post": "Before you add an MCP server to your agent: what does its code actually do?\n\nWe planted 13 sneaky behaviours in a test server (secret env reads, ~/.ssh reads, eval of downloaded code). mcp-xray found 12, zero false positives. grep found 12 too, with 8 false alarms.\n\nThen 12 real servers from npm. Static only, built on REA."
+ "draft_post": "Before you add an MCP server to your agent: what does its code actually do?\n\nWe planted 13 sneaky behaviours in a test server (secret env reads, ~/.ssh reads, eval of downloaded code). mcp-xray found 13, zero false positives. grep found 12, with 8 false alarms.\n\nThen 12 real servers from npm. Static only, built on REA."
 }
