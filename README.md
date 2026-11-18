@@ -35,7 +35,7 @@ Reproduce the measured results:
 ```sh
 npm run fixtures     # fixtures -> results/fixture-scores.json, results/mcp-*.json
 npm run fetch        # the 12 real packages at the versions pinned in targets.json -> targets/ (gitignored)
-npm run reports      # REA on all of them (about 90 s) -> reports/*.html, results/measured.json
+npm run reports      # REA on all of them (2-3 min) -> reports/*.html, results/measured.json
 ```
 
 `scripts/record-demo.mjs` re-records `demo/demo.mp4` from the built reports; it needs Playwright, which is not a
@@ -97,7 +97,9 @@ host (P9) is found as a network call but its host is not recovered. Hosts named 
 ### 12 real MCP server packages from npm
 
 Versions pinned in `targets.json`; numbers from `results/measured.json`. "REA coverage" is REA's own status: `partial`
-means its semantic pass hit its limits on that package; `unknown` means REA did not flag it partial.
+means its semantic pass hit its limits on that package; `unknown` means REA did not flag it partial. "REA s" is wall
+time on one laptop and varies run to run; every other column reproduced exactly from a fresh clone (pinned tarballs,
+REA run from scratch).
 
 | package | version | files | REA coverage | REA s | env | secret? | env not in README | hosts named | hosts not in README | file r/w | proc | eval |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
